@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人首頁 | Minimal Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #161616;
+            --primary: #00d4ff;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 導航欄 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo { font-weight: 600; font-size: 1.2rem; letter-spacing: -0.5px; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* 英雄區 (Hero Section) */
+        section { padding: 100px 10%; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+
+        .hero { height: 100vh; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero p { font-size: 1.25rem; color: var(--text-dim); max-width: 600px; margin-bottom: 2.5rem; }
+
+        /* 按鈕樣式 */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: #000;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2); }
+
+        /* 卡片設計 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: var(--transition);
+        }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+        .card p { color: var(--text-dim); }
+
+        /* 聯絡區 */
+        .contact-link {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: var(--text-main);
+            text-decoration: none;
+            border-bottom: 2px solid var(--primary);
+            transition: var(--transition);
+        }
+        .contact-link:hover { opacity: 0.7; }
+
+        footer {
+            padding: 4rem 10% 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* 滾動動畫初始狀態 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* 簡化移動端 */
+            section { padding: 80px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PORTFOLIO<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#about">關於</a></li>
+            <li><a href="#contact">聯絡</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="reveal">
+            <p style="color: var(--primary); font-weight: 600; margin-bottom: 1rem;">Available for projects</p>
+            <h1>創造具備影響力的<br>數位視覺語言</h1>
+            <p>我是一名設計師與前端開發者，致力於將複雜的想法轉化為簡潔、美觀且實用的網頁體驗。</p>
+            <a href="#about" class="btn">開始探索</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="reveal">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">專業領域</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>介面設計</h3>
+                    <p>專注於極簡風格與直覺化的互動流程，提升產品的使用者滿意度。</p>
+                </div>
+                <div class="card">
+                    <h3>品牌識別</h3>
+                    <p>透過精確的字體與色彩計畫，建立一致且專業的品牌視覺系統。</p>
+                </div>
+                <div class="card">
+                    <h3>響應式開發</h3>
+                    <p>確保您的網頁在手機、平板與桌機上，都能展現出完美的排版。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="reveal">
+            <p style="margin-bottom: 1rem;">準備好開始了嗎？</p>
+            <h2 style="margin-bottom: 2rem;">讓我們聊聊您的下一個計畫。</h2>
+            <a href="mailto:hello@example.com" class="contact-link">hello@example.com</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Designed by Gemini. 保持簡單，保持優雅。</p>
+    </footer>
+
+    <script>
+        // 滾動偵測動畫
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // 初始化第一次偵測
+        reveal();
+
+        // 導航欄捲動背景變色
+        window.addEventListener("scroll", function() {
+            const nav = document.querySelector("nav");
+            if (window.scrollY > 50) {
+                nav.style.padding = "1rem 8%";
+            } else {
+                nav.style.padding = "1.5rem 8%";
+            }
+        });
+    </script>
+</body>
+</html>

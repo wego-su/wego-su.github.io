@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊科技教學首頁 | 薇閣中學</title>
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #92fe9d;
+            --bg: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 背景粒子效果感 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+            z-index: -1;
+        }
+
+        /* 導覽列 */
+        nav {
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li { margin-left: 2rem; }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            transition: 0.3s;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        nav ul li a:hover { color: var(--primary); }
+
+        /* 主視覺區 */
+        header {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .highlight { color: var(--primary); }
+
+        /* 區塊通用樣式 */
+        section {
+            padding: 80px 10%;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 卡片佈局 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        /* 按鈕 */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, var(--primary), #0082ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 1rem;
+            transition: 0.3s;
+        }
+
+        .btn:hover { opacity: 0.9; transform: scale(1.05); }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+/* 照片牆樣式 */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.photo-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 200px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 210, 255, 0.7); /* 藍色半透明遮罩 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.4s;
+    backdrop-filter: blur(4px);
+}
+
+.photo-overlay span {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transform: translateY(20px);
+    transition: 0.4s;
+}
+
+/* 懸停效果 */
+.photo-item:hover img {
+    transform: scale(1.1);
+}
+
+.photo-item:hover .photo-overlay {
+    opacity: 1;
+}
+
+.photo-item:hover .photo-overlay span {
+    transform: translateY(0);
+}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Wego IT Education</div>
+        <ul>
+    <li><a href="#about">個人簡介</a></li>
+    <li><a href="#resources">教材分享</a></li>
+    <li><a href="#results">教學成果</a></li>
+    <li><a href="#photos">照片分享</a></li> </ul>
+    </nav>
+
+    <header>
+        <h1>探索 <span class="highlight">資訊科技</span> 的未來</h1>
+        <p>薇閣中學．啟發運算思維的殿堂</p>
+    </header>
+
+    <section id="about">
+        <h2>個人簡介</h2>
+        <div class="card">
+            <p>任教於薇閣中學資訊科，致力於將 AI 應用、程式邏輯與網路安全整合至中學課程中。我相信資訊科技不只是工具，更是一種解決問題的思維方式。</p>
+            <br>
+            <p><strong>專長領域：</strong> Python 程式設計、Web 開發、演算法、APCS 檢定指導。</p>
+        </div>
+    </section>
+
+    <section id="resources">
+        <h2>教材分享</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Python 基礎與應用</h3>
+                <p>從變數到迴圈，透過有趣的專案實作讓學生愛上寫程式。</p>
+                <a href="#" class="btn">下載講義</a>
+            </div>
+            <div class="card">
+                <h3>APCS 專題研討</h3>
+                <p>針對大學程式設計先修檢定，提供深度演算法解析與模擬題。</p>
+                <a href="#" class="btn">查看線上看</a>
+            </div>
+            <div class="card">
+                <h3>Web 網頁開發</h3>
+                <p>帶領學生從 HTML 到 CSS，建構屬於自己的個人品牌網頁。</p>
+                <a href="#" class="btn">探索專案</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="results">
+        <h2>教學成果</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>114學年度 校內程式競賽</h3>
+                <p>指導學生獲得特優兩名、優等三名，展現優異邏輯解題能力。</p>
+            </div>
+            <div class="card">
+                <h3>AI 科技展專題展出</h3>
+                <p>學生利用影像辨識技術開發出「智慧分類垃圾桶」，獲得高度評價。</p>
+            </div>
+        </div>
+    </section>
+
+<section id="photos">
+    <h2>教學現場剪影</h2>
+    <div class="photo-grid">
+        <div class="photo-item">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600" alt="程式教學">
+            <div class="photo-overlay">
+                <span>專注程式邏輯開發</span>
+            </div>
+        </div>
+        <div class="photo-item">
+            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600" alt="小組討論">
+            <div class="photo-overlay">
+                <span>小組協作與黑客松</span>
+            </div>
+        </div>
+        <div class="photo-item">
+            <img src="https://images.unsplash.com/photo-1581092921461-7d157390dfd1?auto=format&fit=crop&q=80&w=600" alt="機器人實作">
+            <div class="photo-overlay">
+                <span>硬體整合與 IoT 實作</span>
+            </div>
+        </div>
+        <div class="photo-item">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" alt="資安競賽">
+            <div class="photo-overlay">
+                <span>資安攻防競賽紀錄</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer>
+        <p>&copy; 2026 薇閣中學 資訊科教師 | 讓科技點亮學習之路</p>
+    </footer>
+
+    <script>
+        // 簡單的卷動平滑效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
